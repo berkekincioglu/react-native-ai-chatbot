@@ -8,7 +8,7 @@ const AiProfileDetail = () => {
         source={require('../../assets/ai-avatar.png')}
         style={styles.image}
       />
-      <Text style={styles.text}>Karen</Text>
+      <Text style={styles.text}>Aco</Text>
     </View>
   );
 };
