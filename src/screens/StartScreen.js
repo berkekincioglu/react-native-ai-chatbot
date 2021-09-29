@@ -12,12 +12,12 @@ const StartScreen = () => {
       <Text style={styles.startText}>Click button to start chat</Text>
       <View style={styles.start}>
         <View style={styles.button}>
-          <View style={styles.container}>
+          <View style={styles.startButton}>
             <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
               <Entypo
                 name='chat'
                 size={50}
-                color='#ff3e30'
+                color='#999'
                 style={{ padding: 50 }}
               />
             </TouchableOpacity>
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   start: {
     flex: 1,
@@ -42,11 +43,11 @@ const styles = StyleSheet.create({
   button: {
     width: 200,
     height: 200,
-    backgroundColor: '#d6d6d6',
+    backgroundColor: '#f4f4f4',
     borderRadius: 100,
-    shadowColor: '#777',
+    shadowColor: '#999',
     shadowOffset: {
-      width: 0,
+      width: 5,
       height: 5,
     },
     shadowOpacity: 1.7,
@@ -61,5 +62,10 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 18,
+  },
+  startButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
   },
 });

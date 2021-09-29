@@ -9,6 +9,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -25,7 +27,7 @@ const ChatScreen = () => {
           <Ionicons name='chevron-back-outline' size={24} color='black' />
         </TouchableOpacity>
       ),
-      title: '',
+      title: null,
     });
   }, [navigation]);
   return (
@@ -35,21 +37,26 @@ const ChatScreen = () => {
         style={styles.container}
         keyboardVerticalOffset={90}
       >
-        <Fragment>
-          <ScrollView></ScrollView>
-          <View style={styles.footer}>
-            <TextInput placeholder='Send Message' style={styles.textInput} />
-            <TouchableOpacity>
-              <Ionicons name='send' size={24} color='black' />
-            </TouchableOpacity>
-          </View>
-        </Fragment>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Fragment>
+            <ScrollView></ScrollView>
+            <View style={styles.footer}>
+              <TextInput placeholder='Send Message' style={styles.textInput} />
+              <TouchableOpacity>
+                <Ionicons name='send' size={24} color='black' />
+              </TouchableOpacity>
+            </View>
+          </Fragment>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
 export default ChatScreen;
+
+//When send message
+// Keyboard.hide()
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
@@ -58,10 +65,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 20,
+  },
+  textInput: {
+    fontSize: 20,
     borderRadius: 30,
-    borderColor: 'black',
+    borderColor: 'transparent',
     borderWidth: 1,
     marginHorizontal: 5,
+    width: '90%',
+    height: 50,
+    flex: 1,
+    padding: 10,
+    color: 'black',
+    backgroundColor: '#ECECEC',
   },
-  textInput: { fontSize: 20 },
 });

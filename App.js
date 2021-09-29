@@ -14,7 +14,7 @@ const App = () => {
         <Stack.Screen
           name='Start'
           component={StartScreen}
-          options={{ headerShown: false }}
+          // options={{ headerShown: false }}
         />
         <Stack.Screen name='Chat' component={ChatScreen} />
       </Stack.Navigator>
