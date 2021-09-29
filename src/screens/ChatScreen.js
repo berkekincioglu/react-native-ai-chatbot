@@ -39,7 +39,7 @@ const ChatScreen = () => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Fragment>
-            <ScrollView></ScrollView>
+            <ScrollView>{/*Chat will be here */}</ScrollView>
             <View style={styles.footer}>
               <TextInput placeholder='Send Message' style={styles.textInput} />
               <TouchableOpacity>
