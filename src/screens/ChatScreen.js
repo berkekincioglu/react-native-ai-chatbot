@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -19,6 +19,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 
 const ChatScreen = () => {
+  const [messages, setMessage] = useState([]);
+  const [isReceiver, setIsReceiver] = useState(false);
+
   const navigation = useNavigation();
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -39,7 +42,7 @@ const ChatScreen = () => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Fragment>
-            <ScrollView>{/*Chat will be here */}</ScrollView>
+            <ScrollView></ScrollView>
             <View style={styles.footer}>
               <TextInput placeholder='Send Message' style={styles.textInput} />
               <TouchableOpacity>
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 20,
+    padding: 10,
   },
   textInput: {
     fontSize: 20,
