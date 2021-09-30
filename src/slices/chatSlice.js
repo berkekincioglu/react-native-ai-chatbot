@@ -35,4 +35,9 @@ export const {
 
 // Selectors
 
-export const selectReceiverMessage = createSelect;
+export const selectReceiverMessage = (state) => state.chat.receiveMessage;
+export const selectAiBotMessage = (state) => state.chat.aiBotMessage;
+export const selectIsTyping = (state) => state.chat.isTyping;
+export const selectIsReceiver = (state) => state.chat.isReceiever;
+
+export default chatSlice.reducer;
