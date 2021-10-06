@@ -11,17 +11,34 @@ import {
   SafeAreaView,
   Keyboard,
   TouchableWithoutFeedback,
+  FlatList,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Fragment } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 const ChatScreen = () => {
-  const [messages, setMessage] = useState([]);
-  const [isReceiver, setIsReceiver] = useState(false);
+  const [message, setMessage] = useState([]);
+  const [textMessage, setTextMessage] = useState([]);
+  const [id, setId] = useState(0);
+  const onSend = async (text) => {
+    const response =
+      await axios.get(`http://api.brainshop.ai/get?bid=160219&key=tPN94iX18uaYYoAf&uid=meshape&msg=
+      ${text}
+    `);
+    console.log(
+      '----------------------------------------------------------------'
+    );
+    setTextMessage((prevState) => {
+      return [...prevState, { response: response.data.cnt, text, id }];
+    });
 
+    setId(id + 1);
+  };
   const navigation = useNavigation();
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -42,10 +59,37 @@ const ChatScreen = () => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Fragment>
-            <ScrollView></ScrollView>
+            <ScrollView>
+              <FlatList
+                data={textMessage}
+                renderItem={({ item }) => {
+                  // console.log(item);
+                  return (
+                    item && (
+                      <View>
+                        <View style={styles.sender}>
+                          <Text>{item.text}</Text>
+                        </View>
+                        <View style={styles.receiver}>
+                          <Text>{item.response}</Text>
+                        </View>
+                      </View>
+                    )
+                  );
+                }}
+                keyExtractor={(item) => item.id.toString()}
+              />
+            </ScrollView>
             <View style={styles.footer}>
-              <TextInput placeholder='Send Message' style={styles.textInput} />
-              <TouchableOpacity>
+              <TextInput
+                onChangeText={(el) => {
+                  setMessage(el);
+                }}
+                value={message}
+                placeholder='Send Message'
+                style={styles.textInput}
+              />
+              <TouchableOpacity onPress={() => onSend(message)}>
                 <Ionicons name='send' size={24} color='black' />
               </TouchableOpacity>
             </View>
@@ -81,5 +125,28 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'black',
     backgroundColor: '#ECECEC',
+  },
+  receiver: {
+    padding: 15,
+    backgroundColor: '#ECECEC',
+    alignSelf: 'flex-end',
+    borderRadius: 20,
+    marginRight: 15,
+    marginBottom: 20,
+    marginTop: 5,
+    maxWidth: '80%',
+    position: 'relative',
+  },
+  sender: {
+    padding: 15,
+    backgroundColor: '#ffb3b3',
+    alignSelf: 'flex-start',
+    borderRadius: 20,
+    marginRight: 15,
+    marginBottom: 20,
+    marginLeft: 10,
+    marginTop: 20,
+    maxWidth: '80%',
+    position: 'relative',
   },
 });
