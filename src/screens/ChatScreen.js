@@ -27,7 +27,7 @@ const ChatScreen = () => {
   const [id, setId] = useState(0);
   const onSend = async (text) => {
     const response =
-      await axios.get(`http://api.brainshop.ai/get?bid=160219&key=KEY&uid=meshape&msg=
+      await axios.get(`http://api.brainshop.ai/get?bid=160219&key=${process.env.KEY}&uid=meshape&msg=
       ${text}
     `);
     console.log(
